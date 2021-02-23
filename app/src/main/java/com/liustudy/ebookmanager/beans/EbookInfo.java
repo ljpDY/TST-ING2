@@ -24,19 +24,16 @@ public class EbookInfo {
     private String path;
     @Property(nameInDb = "time")//书籍存储的时间，方便排序
     private Long time;
-    @Property(nameInDb = "step")//效率太低，已经无效，但是删除比较麻烦
-    private int step;
     @Transient
     private int iv =  R.drawable.ebook;//书籍基本图片
 
 
-    @Generated(hash = 1527033157)
+
     public EbookInfo(Long id, String name, String path, Long time, int step) {
         this.id = id;
         this.name = name;
         this.path = path;
         this.time = time;
-        this.step = step;
     }
     @Generated(hash = 1447690785)
     public EbookInfo() {
@@ -64,6 +61,13 @@ public class EbookInfo {
         this.name = name;
         this.path = path;
     }
+    @Generated(hash = 1337639586)
+    public EbookInfo(Long id, String name, String path, Long time) {
+        this.id = id;
+        this.name = name;
+        this.path = path;
+        this.time = time;
+    }
 
     public int getIv() {
         return iv;
@@ -77,11 +81,5 @@ public class EbookInfo {
     }
     public void setTime(Long time) {
         this.time = time;
-    }
-    public int getStep() {
-        return this.step;
-    }
-    public void setStep(int step) {
-        this.step = step;
     }
 }

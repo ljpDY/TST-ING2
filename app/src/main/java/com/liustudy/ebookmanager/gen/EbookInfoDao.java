@@ -28,7 +28,6 @@ public class EbookInfoDao extends AbstractDao<EbookInfo, Long> {
         public final static Property Name = new Property(1, String.class, "name", false, "name");
         public final static Property Path = new Property(2, String.class, "path", false, "path");
         public final static Property Time = new Property(3, Long.class, "time", false, "time");
-        public final static Property Step = new Property(4, int.class, "step", false, "step");
     }
 
 
@@ -47,8 +46,7 @@ public class EbookInfoDao extends AbstractDao<EbookInfo, Long> {
                 "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: id
                 "\"name\" TEXT UNIQUE ," + // 1: name
                 "\"path\" TEXT UNIQUE ," + // 2: path
-                "\"time\" INTEGER," + // 3: time
-                "\"step\" INTEGER NOT NULL );"); // 4: step
+                "\"time\" INTEGER);"); // 3: time
     }
 
     /** Drops the underlying database table. */
@@ -80,7 +78,6 @@ public class EbookInfoDao extends AbstractDao<EbookInfo, Long> {
         if (time != null) {
             stmt.bindLong(4, time);
         }
-        stmt.bindLong(5, entity.getStep());
     }
 
     @Override
@@ -106,7 +103,6 @@ public class EbookInfoDao extends AbstractDao<EbookInfo, Long> {
         if (time != null) {
             stmt.bindLong(4, time);
         }
-        stmt.bindLong(5, entity.getStep());
     }
 
     @Override
@@ -120,8 +116,7 @@ public class EbookInfoDao extends AbstractDao<EbookInfo, Long> {
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
             cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // name
             cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // path
-            cursor.isNull(offset + 3) ? null : cursor.getLong(offset + 3), // time
-            cursor.getInt(offset + 4) // step
+            cursor.isNull(offset + 3) ? null : cursor.getLong(offset + 3) // time
         );
         return entity;
     }
@@ -132,7 +127,6 @@ public class EbookInfoDao extends AbstractDao<EbookInfo, Long> {
         entity.setName(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
         entity.setPath(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
         entity.setTime(cursor.isNull(offset + 3) ? null : cursor.getLong(offset + 3));
-        entity.setStep(cursor.getInt(offset + 4));
      }
     
     @Override

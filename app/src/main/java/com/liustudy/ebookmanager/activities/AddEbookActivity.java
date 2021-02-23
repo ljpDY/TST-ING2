@@ -21,6 +21,7 @@ public class AddEbookActivity extends AppCompatActivity implements AdapterView.O
     private ListView book_list_view;
     private List<EbookInfo> ebookInfoList;
     private GreenDaoManager mDaoManager;
+    private int mPosition;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +38,7 @@ public class AddEbookActivity extends AppCompatActivity implements AdapterView.O
         ebookInfoList = new EbookReadUtils(AddEbookActivity.this).getEbookList();
         //初始化数据库管理器
         mDaoManager = GreenDaoManager.getInstance(AddEbookActivity.this);
+        mPosition=0;
     }
 
     private void setView() {
@@ -45,6 +47,7 @@ public class AddEbookActivity extends AppCompatActivity implements AdapterView.O
         book_list_view.setAdapter(adapter);
         //设置监听器
         book_list_view.setOnItemClickListener(this);
+        book_list_view.smoothScrollToPosition(mPosition);
     }
 
 
@@ -53,13 +56,16 @@ public class AddEbookActivity extends AppCompatActivity implements AdapterView.O
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         //根据位置获得EbookInfo对象
         final EbookInfo ebookInfo = (EbookInfo)parent.getItemAtPosition(position);
-        //点击书籍时更新时间
-        ebookInfo.setTime(System.currentTimeMillis());
-        //向数据库插入改对象
-        mDaoManager.insertOrReplace(ebookInfo);
-        Toast.makeText(AddEbookActivity.this,"添加成功！",Toast.LENGTH_SHORT).show();
-        //更新书籍的添加状态，通过position可以恢复listview进度
-        setView();
+        if(mDaoManager.searchByWhere(ebookInfo.getName()) == null){
+            //点击书籍时更新时间
+            ebookInfo.setTime(System.currentTimeMillis());
+            //向数据库插入改对象
+            mDaoManager.insertOrReplace(ebookInfo);
+            Toast.makeText(AddEbookActivity.this,"添加成功！",Toast.LENGTH_SHORT).show();
+            //更新书籍的添加状态，通过position可以恢复listview进度
+            mPosition=position;
+            setView();
+        }
     }
 
     @Override

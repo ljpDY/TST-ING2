@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="PageView">
+        <attr name="title" format="string"></attr>
+        <attr name="android:textSize" format="float"></attr>
+        <attr name="time" format="string"></attr>
+        <attr name="electric_quantity" format="string"></attr>
+        <attr name="page" format="reference"></attr>
+    </declare-styleable>
+
+</resources>
